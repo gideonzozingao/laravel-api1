@@ -14,7 +14,7 @@ new class extends Component {
     public string $phone = '';
     public string $email = '';
     public string $password = '';
-    public string $is_admin = '';
+    public bool $is_admin = false;
     /**
      * Handle an incoming registration request.
      */
@@ -32,17 +32,9 @@ new class extends Component {
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
-        // $reportType = ReportType::create($validated);
 
         if ($user) {
             session()->flash('success', 'User Created Successfully.');
-            $name = '';
-            $username = '';
-            $phone = '';
-            $email = '';
-            $password = '';
-            $is_admin = '';
-           
         }
     }
 }; ?>
@@ -95,8 +87,8 @@ new class extends Component {
         <div>
             <x-input-label for="is_admin" :value="__('Role')" />
             <select wire:model="is_admin" id="role" name="is_admin" class="block mt-1 w-full">
-                <option value="0">Normal User</option>
-                <option value="1">Admin</option>
+                <option value="{{ 0 }}">Normal User</option>
+                <option value="{{ 1 }}">Admin</option>
             </select>
             <x-input-error :messages="$errors->get('is_admin')" class="mt-2" />
         </div>

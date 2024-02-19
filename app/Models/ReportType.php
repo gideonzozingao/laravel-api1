@@ -13,4 +13,9 @@ class ReportType extends Model
         'report_type',
         'description',
     ];
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 }
