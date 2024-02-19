@@ -38,6 +38,19 @@ new class extends Component {
                         {{ __('Users') }}
                     </x-nav-link>
                 </div>
+                {{-- reports --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('reports')" :active="request()->routeIs('reports')" wire:navigate>
+                        {{ __('Reports') }}
+                    </x-nav-link>
+                </div>
+
+                {{-- reportsTypes --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('reportsTypes')" :active="request()->routeIs('reportsTypes')" wire:navigate>
+                        {{ __('Report Types') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

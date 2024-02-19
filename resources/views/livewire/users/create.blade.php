@@ -14,7 +14,7 @@ new class extends Component {
     public string $phone = '';
     public string $email = '';
     public string $password = '';
-    public string $is_admin='';
+    public string $is_admin = '';
     /**
      * Handle an incoming registration request.
      */
@@ -31,27 +31,36 @@ new class extends Component {
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered(($user = User::create($validated))));
+        $user = User::create($validated);
+        // $reportType = ReportType::create($validated);
 
-        // Auth::login($user);
-
-        // $this->redirect(RouteServiceProvider::HOME, navigate: true);
+        if ($user) {
+            session()->flash('success', 'User Created Successfully.');
+            $name = '';
+            $username = '';
+            $phone = '';
+            $email = '';
+            $password = '';
+            $is_admin = '';
+           
+        }
     }
 }; ?>
 
-<div>
+<div class="mt-1 bg-white shadow-sm rounded-lg divide-y p-8">
     @if (session()->has('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Success!</strong>
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
     @endif
+
     <form wire:submit="register" class="grid grid-cols-1 gap-y-2 sm:grid-cols-2 gap-x-4">
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required
-                autofocus autocomplete="name" />
+            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name"
+                required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
         <!-- Email Address -->
@@ -85,7 +94,7 @@ new class extends Component {
         <!-- Role -->
         <div>
             <x-input-label for="is_admin" :value="__('Role')" />
-            <select wire:model="is_admin" id="role" name="is_admin" class="block w-full mt-1">
+            <select wire:model="is_admin" id="role" name="is_admin" class="block mt-1 w-full">
                 <option value="0">Normal User</option>
                 <option value="1">Admin</option>
             </select>
