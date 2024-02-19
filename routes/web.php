@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::view('/', 'welcome');
+
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::group([
+    "middleware" => ['auth', 'verified'],
+    'prefix' => 'users',
+], function () {
+
+    Route::get("/", [UserController::class, "index"])-> name('users');
+    Route::get("new", [UserController::class, "create"])->name("users.new");
+    Route::get("/{id}", [UserController::class, "show"])->name('user');
+    Route::get("/{id}/edit", [UserController::class, "edit"])->name('user.edit');
+    Route::post("new", [UserController::class, "store"])->name('user.create');
 });
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+require __DIR__ . '/auth.php';

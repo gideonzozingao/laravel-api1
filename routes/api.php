@@ -22,7 +22,9 @@ Route::post("register", [ApiController::class, "register"]);
 Route::post("login", [ApiController::class, "login"]);
 
 Route::group([
-    "middleware" => ["auth:api"]
+    "middleware" => ["auth:api"],
+    'prefix' => 'users',
+    'namespace' => 'App\Http\Controllers\Api\V1'
 ], function () {
 
     Route::get("profile", [ApiController::class, "profile"]);
