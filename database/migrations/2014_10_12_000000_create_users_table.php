@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->string('username')->unique();
             $table->boolean('is_admin')->default(1);
             $table->enum('account_status', ['Active', 'Inactive', 'Blocked'])->default('Active');

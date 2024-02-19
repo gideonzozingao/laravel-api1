@@ -27,8 +27,8 @@ Route::group([
 
     Route::get("/", [UserController::class, "index"])-> name('users');
     Route::get("new", [UserController::class, "create"])->name("users.new");
-    Route::get("/{id}", [UserController::class, "show"])->name('user');
-    Route::get("/{id}/edit", [UserController::class, "edit"])->name('user.edit');
+    Route::get('/{id}', [UserController::class, "show"])->name('user');
+    Route::get('/{id}/edit', [UserController::class, "edit"])->name('user.edit');
     Route::post("new", [UserController::class, "store"])->name('user.create');
 });
 Route::view('profile', 'profile')
