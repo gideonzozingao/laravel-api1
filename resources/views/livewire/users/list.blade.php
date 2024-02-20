@@ -15,11 +15,6 @@ new class extends Component {
 }; ?>
 
 <div class="mt-1 bg-white shadow-sm rounded-lg divide-y">
-   
-    
-
-    
-    
     @if ($loading)
         <!-- Display loading indicator if data is loading -->
         <div class="text-center py-4">
@@ -39,15 +34,25 @@ new class extends Component {
                 <div class="flex-1">
                     <div class="flex justify-between items-center">
                         <div>
-                            <!-- Add anchor tag here -->
-                            <x-heroicons::mini.solid.user class="w-5 h-5" /> <a href="{{ route('user', ['id' => $user->id]) }}"
-                                class="text-gray-800 hover:underline"> {{ $user->name }}</a>
+                            <!-- Use Livewire link -->
+                            <x-heroicons::mini.solid.user class="w-5 h-5" />
+                            <x-nav-link :href="route('user', ['id' => $user->id])" class="cursor-pointer text-gray-800"
+                                wire:navigate>
+                                {{ $user->name }}
+                            </x-nav-link>
                             <small
                                 class="ml-2 text-sm text-gray-600">{{ $user->created_at->format('j M Y, g:i a') }}</small>
                             <small class="ml-2 text-sm text-gray-600">{{ $user->is_admin ? 'Admin User' : '' }}</small>
                         </div>
                     </div>
-                    <p class="mt-4 text-lg text-gray-900">{{ $user->email }}</p>
+                    <div class="flex justify-end">
+                        <!-- Use Livewire route helper for edit link -->
+                        <x-nav-link :href="route('user.edit', ['id' => $user->id])"  class="cursor-pointer text-gray-800"  wire:navigate>
+                            <x-danger-button class="ms-3">
+                                <x-heroicons::mini.solid.pencil-square class="w-5 h-5" />
+                            </x-danger-button>
+                        </x-nav-link>
+                    </div>
                 </div>
             </div>
         @endforeach

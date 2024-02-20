@@ -6,7 +6,8 @@
     </x-slot>
     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex justify-end">
         <x-nav-link :href="route('reportsTypes.new')" :active="request()->routeIs('reportsTypes.new')" wire:navigate>
-            <x-danger-button class="ms-3">{{ __('New') }}</x-danger-button>
+            <x-danger-button class="ms-3"> <x-heroicons::mini.solid.plus-circle
+                class="w-5 h-5" /></x-danger-button>
         </x-nav-link>
     </div>
     <div class="py-2">
